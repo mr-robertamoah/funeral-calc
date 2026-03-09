@@ -23,6 +23,7 @@
       --blue: #7ab8d4;
       --red: #c07a6a;
       --amber: #d4a44c;
+      --purple: #9b7ec8;
     }
 
     body {
@@ -49,26 +50,34 @@
     .header-sub { font-size: 13px; color: var(--text-dim); font-style: italic; }
 
     /* CARDS */
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+    .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
     .card {
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: 8px; padding: 14px;
+      border-radius: 8px; padding: 13px 12px;
     }
-    .card.debt-card { border-color: #5a3a30; }
-    .card-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px; }
-    .card-value { font-size: 17px; font-family: 'Cormorant Garamond', serif; color: var(--text); }
-    .card-value.neg { color: var(--red); }
-    .card-sub { font-size: 10px; color: var(--text-faint); margin-top: 3px; }
+    .card.debt-card  { border-color: #5a3a30; }
+    .card.loan-card  { border-color: #4a3a60; }
+    .card-label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px; }
+    .card-value { font-size: 16px; font-family: 'Cormorant Garamond', serif; color: var(--text); }
+    .card-sub { font-size: 9px; color: var(--text-faint); margin-top: 3px; }
 
-    .debt-input-wrap { display: flex; align-items: center; gap: 5px; margin-top: 4px; }
-    .debt-prefix { font-family: 'Cormorant Garamond', serif; font-size: 15px; color: var(--red); white-space: nowrap; }
-    .debt-input {
-      background: #1a1018; border: 1px solid #5a3a30;
-      border-radius: 5px; color: var(--red);
-      font-family: 'Cormorant Garamond', serif; font-size: 16px;
-      padding: 3px 7px; width: 100%; outline: none;
+    .editable-input-wrap { display: flex; align-items: center; gap: 4px; margin-top: 4px; }
+    .editable-prefix { font-family: 'Cormorant Garamond', serif; font-size: 14px; white-space: nowrap; }
+    .editable-prefix.red    { color: var(--red); }
+    .editable-prefix.purple { color: var(--purple); }
+    .editable-input {
+      border-radius: 5px;
+      font-family: 'Cormorant Garamond', serif; font-size: 15px;
+      padding: 3px 6px; width: 100%; outline: none;
     }
-    .debt-input:focus { border-color: var(--red); }
+    .editable-input.red {
+      background: #1a1018; border: 1px solid #5a3a30; color: var(--red);
+    }
+    .editable-input.red:focus { border-color: var(--red); }
+    .editable-input.purple {
+      background: #16101f; border: 1px solid #4a3a60; color: var(--purple);
+    }
+    .editable-input.purple:focus { border-color: var(--purple); }
 
     /* POOL BAR */
     .pool-bar {
@@ -79,37 +88,7 @@
     }
     .pool-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 5px; }
     .pool-value { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #b0d8f0; }
-    .pool-formula { font-size: 11px; color: #4a7a9b; text-align: right; line-height: 1.8; }
-
-    /* CASTRO TOGGLE */
-    .castro-box {
-      background: var(--surface); border-radius: 10px;
-      padding: 16px 20px; margin-bottom: 20px;
-      border: 1px solid var(--border); transition: border-color 0.3s;
-    }
-    .castro-box.active { border-color: var(--gold-dim); }
-    .castro-inner { display: flex; justify-content: space-between; align-items: center; gap: 14px; }
-    .castro-info { flex: 1; }
-    .castro-name { font-size: 15px; color: var(--text); margin-bottom: 3px; }
-    .castro-detail { font-size: 12px; color: var(--text-dim); margin-bottom: 3px; }
-    .castro-hint { font-size: 11px; color: var(--text-faint); }
-    .toggle-btn {
-      background: var(--border); border: none; border-radius: 20px;
-      width: 52px; height: 28px; cursor: pointer;
-      position: relative; transition: background 0.3s; flex-shrink: 0;
-    }
-    .toggle-btn.on { background: var(--gold-dim); }
-    .toggle-knob {
-      position: absolute; top: 3px; left: 3px;
-      width: 22px; height: 22px; background: var(--text);
-      border-radius: 50%; transition: left 0.3s;
-    }
-    .toggle-btn.on .toggle-knob { left: 27px; }
-    .castro-note {
-      margin-top: 12px; padding: 10px 14px;
-      background: #141e30; border-radius: 6px;
-      font-size: 12px; color: var(--blue);
-    }
+    .pool-formula { font-size: 11px; color: #4a7a9b; text-align: right; line-height: 1.9; }
 
     /* SECTION TITLE */
     .section-title {
@@ -117,10 +96,10 @@
       color: var(--gold-dim); text-transform: uppercase; margin-bottom: 12px;
     }
 
-    /* CONTRIBUTOR ROW — 4 columns: checkbox | info | withdrawal | share */
+    /* CONTRIBUTOR ROW */
     .contributor {
       display: grid;
-      grid-template-columns: 24px 1fr 120px 100px;
+      grid-template-columns: 24px 1fr 125px 105px;
       align-items: center;
       padding: 10px 14px;
       margin-bottom: 6px;
@@ -131,7 +110,6 @@
       transition: all 0.2s;
     }
     .contributor.declined { opacity: 0.38; background: var(--surface2); border-color: #1e1d2a; }
-    .contributor.castro-row { border-color: #3a6080; }
 
     .check-btn {
       width: 20px; height: 20px; border-radius: 4px;
@@ -147,7 +125,6 @@
     .contributor.declined .contributor-name { color: var(--text-faint); }
     .contributor-contrib { font-size: 11px; color: var(--text-faint); margin-top: 1px; }
 
-    /* WITHDRAWAL */
     .withdrawal-wrap { display: flex; flex-direction: column; gap: 3px; }
     .withdrawal-label { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-faint); }
     .withdrawal-row { display: flex; align-items: center; gap: 4px; }
@@ -161,7 +138,6 @@
     .withdrawal-input:focus { border-color: var(--amber); }
     .contributor.declined .withdrawal-wrap { opacity: 0.3; pointer-events: none; }
 
-    /* SHARE */
     .contributor-share { text-align: right; }
     .share-total { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--green); }
     .share-breakdown { font-size: 10px; color: var(--green-dim); margin-top: 2px; line-height: 1.5; }
@@ -189,10 +165,9 @@
       font-style: italic; font-size: 13px; color: var(--text-faint);
     }
 
-    @media (max-width: 520px) {
+    @media (max-width: 560px) {
       .cards { grid-template-columns: 1fr 1fr; }
-      .cards .card:nth-child(3) { grid-column: span 2; }
-      .contributor { grid-template-columns: 24px 1fr 90px 85px; gap: 6px; padding: 10px 10px; }
+      .contributor { grid-template-columns: 24px 1fr 95px 80px; gap: 6px; padding: 10px 10px; }
       .pool-bar { flex-direction: column; align-items: flex-start; gap: 6px; }
       .pool-formula { text-align: left; }
     }
@@ -208,64 +183,53 @@
     <div class="header-sub">Distribution Calculator</div>
   </div>
 
-  <!-- CARDS -->
   <div class="cards">
     <div class="card">
       <div class="card-label">Total Donations</div>
       <div class="card-value">GH₵ 11,206</div>
       <div class="card-sub">07–08 March</div>
     </div>
+
     <div class="card debt-card">
-      <div class="card-label">Debt to Settle</div>
-      <div class="debt-input-wrap">
-        <span class="debt-prefix">− GH₵</span>
-        <input class="debt-input" type="number" id="debtInput" value="4825" min="0" oninput="render()" />
+      <div class="card-label">Outstanding Debt</div>
+      <div class="editable-input-wrap">
+        <span class="editable-prefix red">− GH₵</span>
+        <input class="editable-input red" type="number" id="debtInput" value="2000" min="0" oninput="recalc()" />
       </div>
-      <div class="card-sub" style="margin-top:5px">edit as needed</div>
+      <div class="card-sub" style="margin-top:5px">e.g. drinks</div>
     </div>
+
+    <div class="card loan-card">
+      <div class="card-label">Loan to Repay</div>
+      <div class="editable-input-wrap">
+        <span class="editable-prefix purple">− GH₵</span>
+        <input class="editable-input purple" type="number" id="loanInput" value="3000" min="0" oninput="recalc()" />
+      </div>
+      <div class="card-sub" style="margin-top:5px">deducted first</div>
+    </div>
+
     <div class="card">
-      <div class="card-label">Castro's Gift</div>
-      <div class="card-value neg">− GH₵ 3,000</div>
-      <div class="card-sub">fixed recognition</div>
+      <div class="card-label">Pool for Sharing</div>
+      <div class="card-value" id="poolCard" style="color:var(--blue)">—</div>
+      <div class="card-sub">after all deductions</div>
     </div>
   </div>
 
-  <!-- POOL BAR -->
   <div class="pool-bar">
     <div>
-      <div class="pool-label">Pool Available for Sharing</div>
+      <div class="pool-label">Sharing Pool</div>
       <div class="pool-value" id="poolValue">—</div>
     </div>
     <div class="pool-formula" id="poolFormula">—</div>
   </div>
 
-  <!-- CASTRO TOGGLE -->
-  <div class="castro-box" id="castroBox">
-    <div class="castro-inner">
-      <div class="castro-info">
-        <div class="castro-name">Castro</div>
-        <div class="castro-detail">Contributed GH₵ 8,000 · Receiving GH₵ 3,000 fixed gift</div>
-        <div class="castro-hint">Toggle on if Castro also wants a proportional share from the pool</div>
-      </div>
-      <button class="toggle-btn" id="castroToggle" onclick="toggleCastro()">
-        <div class="toggle-knob"></div>
-      </button>
-    </div>
-    <div class="castro-note" id="castroNote" style="display:none">
-      Castro will receive a proportional share in addition to his fixed GH₵ 3,000
-    </div>
-  </div>
-
-  <!-- CONTRIBUTORS -->
-  <div class="section-title">Contributors — decline · amount they want out of pool</div>
+  <div class="section-title">Contributors — decline · basis reduction</div>
   <div id="contributorList"></div>
 
-  <!-- SUMMARY -->
   <div class="summary">
     <div class="summary-row"><span>Receiving parties</span><span id="sumCount">—</span></div>
-    <div class="summary-row"><span>Total basis reductions</span><span id="sumWithdrawals">—</span></div>
-    <div class="summary-row"><span>Pool being shared</span><span id="sumRemaining">—</span></div>
-    <div class="summary-row"><span>Combined effective contributions</span><span id="sumContrib">—</span></div>
+    <div class="summary-row"><span>Total basis reductions</span><span id="sumReductions">—</span></div>
+    <div class="summary-row"><span>Combined effective contributions</span><span id="sumEffContrib">—</span></div>
     <div class="summary-divider"></div>
     <div class="summary-total"><span>Total distributed</span><span id="sumTotal">—</span></div>
     <div class="summary-warn" id="sumWarn"></div>
@@ -276,165 +240,130 @@
 
 <script>
   const TOTAL_DONATIONS = 11206;
-  const CASTRO_FIXED    = 3000;
 
   const contributors = [
-    { id: 1, name: "Castro",           amount: 8000, isCastro: true,  declined: false, withdrawal: 0 },
-    { id: 2, name: "Paa Kwesi n Mum",  amount: 3000, isCastro: false, declined: false, withdrawal: 0 },
-    { id: 3, name: "Dad",              amount: 1000, isCastro: false, declined: false, withdrawal: 0 },
-    { id: 4, name: "Yaw n Cousins",    amount: 3500, isCastro: false, declined: false, withdrawal: 0 },
-    { id: 5, name: "Prominent",        amount: 3000, isCastro: false, declined: false, withdrawal: 0 },
-    { id: 6, name: "Bengazy",          amount: 2500, isCastro: false, declined: false, withdrawal: 0 },
-    { id: 7, name: "Joyz, Yaa, Twum",  amount: 3000, isCastro: false, declined: false, withdrawal: 0 },
-    { id: 8, name: "Sis Afia n Husby", amount: 2000, isCastro: false, declined: false, withdrawal: 0 },
+    { id: 1, name: "Castro",           amount: 5000, declined: false, withdrawal: 0 },
+    { id: 2, name: "Paa Kwesi n Mum",  amount: 3000, declined: false, withdrawal: 0 },
+    { id: 3, name: "Dad",              amount: 1000, declined: false, withdrawal: 0 },
+    { id: 4, name: "Yaw n Cousins",    amount: 3500, declined: false, withdrawal: 0 },
+    { id: 5, name: "Prominent",        amount: 3000, declined: false, withdrawal: 0 },
+    { id: 6, name: "Bengazy",          amount: 2500, declined: false, withdrawal: 0 },
+    { id: 7, name: "Joyz, Yaa, Twum",  amount: 3000, declined: false, withdrawal: 0 },
+    { id: 8, name: "Sis Afia n Husby", amount: 2000, declined: false, withdrawal: 0 },
   ];
-
-  let castroWantsShare = false;
-
-  function toggleCastro() {
-    castroWantsShare = !castroWantsShare;
-    document.getElementById('castroToggle').classList.toggle('on', castroWantsShare);
-    document.getElementById('castroNote').style.display = castroWantsShare ? 'block' : 'none';
-    document.getElementById('castroBox').classList.toggle('active', castroWantsShare);
-    render();
-  }
 
   function toggleDeclined(id) {
     const c = contributors.find(x => x.id === id);
-    if (c && !c.isCastro) { c.declined = !c.declined; render(); }
+    if (c) { c.declined = !c.declined; render(); }
   }
 
   function setWithdrawal(id, val) {
     const c = contributors.find(x => x.id === id);
     if (c) c.withdrawal = Math.max(0, parseInt(val) || 0);
-    recalc(); // only update numbers, never rebuild inputs
+    recalc();
   }
 
   function fmt(n) { return 'GH₵ ' + Math.round(n).toLocaleString(); }
 
   function calcNumbers() {
     const debt = Math.max(0, parseInt(document.getElementById('debtInput').value) || 0);
-    const grossPool = TOTAL_DONATIONS - debt - CASTRO_FIXED;
-    const nonCastroReceivers = contributors.filter(c => !c.isCastro && !c.declined);
-    const castroC = contributors.find(c => c.isCastro);
-    const allReceivers = castroWantsShare ? [castroC, ...nonCastroReceivers] : nonCastroReceivers;
+    const loan = Math.max(0, parseInt(document.getElementById('loanInput').value)  || 0);
+    const pool = TOTAL_DONATIONS - debt - loan;
 
-    // Effective contribution = original amount MINUS what they want out
-    // Reducing their basis means they get a smaller proportional share,
-    // and everyone else automatically gets more.
-    const effContrib = (c) => Math.max(0, c.amount - (c.withdrawal || 0));
-    const totalEffContrib = allReceivers.reduce((s, c) => s + effContrib(c), 0);
+    const receivers = contributors.filter(c => !c.declined);
+
+    // Effective contribution = amount contributed minus basis reduction.
+    // Lower effective contribution → smaller share → others get more.
+    const effContrib  = (c) => Math.max(0, c.amount - (c.withdrawal || 0));
+    const totalEff    = receivers.reduce((s, c) => s + effContrib(c), 0);
 
     const sharesMap = {};
-    if (grossPool > 0 && totalEffContrib > 0) {
-      allReceivers.forEach(c => {
-        sharesMap[c.id] = Math.round((effContrib(c) / totalEffContrib) * grossPool);
+    if (pool > 0 && totalEff > 0) {
+      receivers.forEach(c => {
+        sharesMap[c.id] = Math.round((effContrib(c) / totalEff) * pool);
       });
-      // Fix rounding drift on last receiver
-      const distributed = allReceivers.reduce((s, c) => s + sharesMap[c.id], 0);
-      const diff = grossPool - distributed;
-      if (diff !== 0 && allReceivers.length > 0)
-        sharesMap[allReceivers[allReceivers.length - 1].id] += diff;
+      // Correct rounding drift on last receiver
+      const distributed = receivers.reduce((s, c) => s + sharesMap[c.id], 0);
+      const diff = pool - distributed;
+      if (diff !== 0 && receivers.length > 0)
+        sharesMap[receivers[receivers.length - 1].id] += diff;
     }
-    return { debt, grossPool, nonCastroReceivers, castroC, allReceivers,
-             effContrib, totalEffContrib, sharesMap };
+
+    return { debt, loan, pool, receivers, effContrib, totalEff, sharesMap };
   }
 
-  // Only update share displays and summary — never touch inputs
+  // Updates numbers and share cells only — never touches input fields
   function recalc() {
-    const { debt, grossPool, nonCastroReceivers, castroC, allReceivers,
-            effContrib, totalEffContrib, sharesMap } = calcNumbers();
+    const { debt, loan, pool, receivers, effContrib, totalEff, sharesMap } = calcNumbers();
+    const isNeg = pool < 0;
 
-    // Pool bar
-    document.getElementById('poolValue').textContent = fmt(Math.max(0, grossPool));
+    document.getElementById('poolCard').textContent  = isNeg ? '⚠ overdrawn' : fmt(pool);
+    document.getElementById('poolValue').textContent = isNeg ? '⚠ overdrawn' : fmt(pool);
     document.getElementById('poolFormula').innerHTML =
-      `11,206 &minus; ${debt.toLocaleString()} &minus; 3,000<br>` +
-      `<span style="color:#2a5a7a">= ${fmt(grossPool)} basis</span>`;
+      `11,206 &minus; ${debt.toLocaleString()} (debt) &minus; ${loan.toLocaleString()} (loan)<br>` +
+      `<span style="color:#2a5a7a">= ${isNeg ? '⚠ negative' : fmt(pool)} sharing pool</span>`;
 
-    // Update each share cell (identified by data-share-id)
     contributors.forEach(c => {
       const cell = document.querySelector(`[data-share-id="${c.id}"]`);
       if (!cell) return;
-      if (c.isCastro) {
-        const propShare = castroWantsShare ? (sharesMap[c.id] || 0) : 0;
-        const total = CASTRO_FIXED + propShare;
-        let bd = 'fixed gift';
-        if (castroWantsShare) {
-          const eff = effContrib(c);
-          const pct = totalEffContrib > 0 ? (eff / totalEffContrib * 100).toFixed(1) : '0.0';
-          bd = `3,000 gift + ${pct}% share`;
-          if (c.withdrawal) bd += ` (basis reduced by ${fmt(c.withdrawal)})`;
-        }
-        cell.innerHTML = `<div class="share-total">${fmt(total)}</div>
-          <div class="share-breakdown">${bd}</div>`;
-      } else if (c.declined) {
+      if (c.declined) {
         cell.innerHTML = `<span class="declined-label">declined</span>`;
-      } else {
-        const share = sharesMap[c.id] || 0;
-        const eff = effContrib(c);
-        const pct = totalEffContrib > 0 ? (eff / totalEffContrib * 100).toFixed(1) : '0.0';
-        let bd = `${pct}% of pool`;
-        if (c.withdrawal) bd += ` (basis reduced by ${fmt(c.withdrawal)})`;
-        cell.innerHTML = `<div class="share-total">${fmt(share)}</div>
-          <div class="share-breakdown">${bd}</div>`;
+        return;
       }
+      const share = (!isNeg && sharesMap[c.id]) ? sharesMap[c.id] : 0;
+      const eff   = effContrib(c);
+      const pct   = totalEff > 0 ? (eff / totalEff * 100).toFixed(1) : '0.0';
+      let bd = `${pct}% of pool`;
+      if (c.withdrawal) bd += ` · basis −${fmt(c.withdrawal)}`;
+      cell.innerHTML = `<div class="share-total">${isNeg ? '—' : fmt(share)}</div>
+        <div class="share-breakdown">${bd}</div>`;
     });
 
-    // Summary
-    const grandTotal = allReceivers.reduce((s, c) => s + (sharesMap[c.id] || 0), 0) + CASTRO_FIXED;
-    const totalReducedBy = allReceivers.reduce((s, c) => s + (c.withdrawal || 0), 0);
+    const grandTotal  = isNeg ? 0 : receivers.reduce((s, c) => s + (sharesMap[c.id] || 0), 0);
+    const totalReduce = receivers.reduce((s, c) => s + (c.withdrawal || 0), 0);
 
-    document.getElementById('sumCount').textContent =
-      nonCastroReceivers.length + (castroWantsShare ? 1 : 0) + ' person(s)';
-    document.getElementById('sumWithdrawals').textContent =
-      totalReducedBy > 0 ? fmt(totalReducedBy) + ' (basis reductions)' : 'none';
-    document.getElementById('sumRemaining').textContent = fmt(Math.max(0, grossPool));
-    document.getElementById('sumContrib').textContent = fmt(totalEffContrib);
-    document.getElementById('sumTotal').textContent = fmt(grandTotal);
-    document.getElementById('sumWarn').textContent = grossPool < 0
-      ? `⚠ Pool is negative — debt exceeds available donations.` : '';
+    document.getElementById('sumCount').textContent      = receivers.length + ' person(s)';
+    document.getElementById('sumReductions').textContent = totalReduce > 0 ? fmt(totalReduce) : 'none';
+    document.getElementById('sumEffContrib').textContent = fmt(totalEff);
+    document.getElementById('sumTotal').textContent      = isNeg ? '—' : fmt(grandTotal);
+    document.getElementById('sumWarn').textContent       = isNeg
+      ? `⚠ Deductions (${fmt(debt + loan)}) exceed total donations (${fmt(TOTAL_DONATIONS)}). Please reduce.` : '';
   }
 
-  // Full render — builds DOM rows, then recalcs. Only called on structural changes.
+  // Builds DOM rows — only called on page load or when someone is declined/reinstated
   function render() {
     const list = document.getElementById('contributorList');
     list.innerHTML = '';
 
     contributors.forEach(c => {
       const row = document.createElement('div');
-      row.className = 'contributor'
-        + (c.declined ? ' declined' : '')
-        + (c.isCastro ? ' castro-row' : '');
+      row.className = 'contributor' + (c.declined ? ' declined' : '');
 
-      // Col 1: checkbox
+      // Col 1: decline checkbox
       const col1 = document.createElement('div');
-      if (!c.isCastro) {
-        const btn = document.createElement('button');
-        btn.className = 'check-btn' + (c.declined ? ' checked' : '');
-        btn.textContent = c.declined ? '✓' : '';
-        btn.onclick = () => toggleDeclined(c.id);
-        col1.appendChild(btn);
-      }
+      const btn  = document.createElement('button');
+      btn.className   = 'check-btn' + (c.declined ? ' checked' : '');
+      btn.textContent = c.declined ? '✓' : '';
+      btn.onclick     = () => toggleDeclined(c.id);
+      col1.appendChild(btn);
       row.appendChild(col1);
 
-      // Col 2: info
+      // Col 2: name + contribution
       const col2 = document.createElement('div');
       col2.className = 'contributor-info';
       col2.innerHTML = `<div class="contributor-name">${c.name}</div>
         <div class="contributor-contrib">contributed ${fmt(c.amount)}</div>`;
       row.appendChild(col2);
 
-      // Col 3: withdrawal input (always built once; never rebuilt on recalc)
+      // Col 3: basis reduction input (built once, never rebuilt on recalc)
       const col3 = document.createElement('div');
       col3.className = 'withdrawal-wrap';
-      const showInput = c.isCastro ? castroWantsShare : !c.declined;
-      if (showInput) {
-        col3.innerHTML = `<div class="withdrawal-label">Wants out</div>
+      if (!c.declined) {
+        col3.innerHTML = `<div class="withdrawal-label">Basis reduction</div>
           <div class="withdrawal-row">
             <span class="w-sym">GH₵</span>
             <input class="withdrawal-input" type="number" min="0"
-              placeholder="0" value="${c.withdrawal || 0}"
-              id="w${c.id}" />
+              placeholder="0" value="${c.withdrawal || 0}" id="w${c.id}" />
           </div>`;
         col3.querySelector('input').addEventListener('input', function() {
           setWithdrawal(c.id, this.value);
@@ -444,14 +373,14 @@
 
       // Col 4: share display (updated by recalc via data-share-id)
       const col4 = document.createElement('div');
-      col4.className = 'contributor-share';
+      col4.className    = 'contributor-share';
       col4.dataset.shareId = c.id;
       row.appendChild(col4);
 
       list.appendChild(row);
     });
 
-    recalc(); // populate share cells after building rows
+    recalc();
   }
 
   render();
